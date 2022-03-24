@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/exA/Walkit_fitness_App/app/src/main/res/font/font.xml" value="0.284375" />
+        <entry key="..\:/exA/Walkit_fitness_App/app/src/main/res/layout/activity_main.xml" value="0.2789115646258503" />
+        <entry key="..\:/exA/Walkit_fitness_App/app/src/main/res/mipmap-anydpi-v26/background_color_main.xml" value="0.124" />
+        <entry key="..\:/exA/Walkit_fitness_App/app/src/main/res/mipmap-anydpi-v26/background_color_main_round.xml" value="0.124" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
