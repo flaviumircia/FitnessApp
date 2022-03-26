@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Walkit_fitness_App">
         <activity
+            android:name=".register_activity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
