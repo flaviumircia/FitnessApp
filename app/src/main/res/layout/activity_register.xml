@@ -217,7 +217,7 @@
         app:layout_constraintVertical_bias="0.515" />
 
     <TextView
-        android:id="@+id/loginTextView"
+        android:id="@+id/restPasswordTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="39dp"
