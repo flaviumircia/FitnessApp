@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Walkit_fitness_App">
         <activity
-            android:name=".passwordReseted"
-            android:exported="false" />
-        <activity
             android:name=".forgotPassword"
             android:exported="false" />
         <activity
