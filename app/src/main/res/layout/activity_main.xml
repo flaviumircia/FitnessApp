@@ -39,6 +39,7 @@
 
         android:inputType="textEmailAddress"
         android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:hint="E-mail adress"
         android:textColor="#828282"
         android:textColorHint="#828282"
@@ -54,6 +55,7 @@
         android:layout_marginTop="24dp"
         android:background="@drawable/roundcorner"
         android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:ems="10"
         android:textSize="15dp"
         android:textColor="#828282"
