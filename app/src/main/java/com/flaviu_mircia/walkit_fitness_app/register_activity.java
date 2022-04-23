@@ -107,6 +107,7 @@ public class register_activity extends AppCompatActivity {
                             DocumentReference documentReference=fStore.collection("users").document(userID);
                             Map<String,Object> user=new HashMap<String,Object>();
                             user.put("userName",userName);
+                            user.put("dailySteps",0);
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
