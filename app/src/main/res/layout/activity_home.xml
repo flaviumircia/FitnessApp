@@ -13,7 +13,6 @@
         android:layout_width="147dp"
         android:layout_height="200dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/gradient_background"
         app:layout_constraintEnd_toEndOf="@+id/heartContainer"
         app:layout_constraintStart_toStartOf="@+id/heartContainer"
         app:layout_constraintTop_toBottomOf="@+id/heartContainer"
@@ -25,7 +24,6 @@
         android:layout_width="147dp"
         android:layout_height="200dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/gradient_background"
         app:layout_constraintBottom_toTopOf="@+id/console"
         app:layout_constraintEnd_toEndOf="@+id/stepsContainer"
         app:layout_constraintHorizontal_bias="0.0"
@@ -40,13 +38,13 @@
         android:layout_width="147dp"
         android:layout_height="200dp"
         android:layout_marginStart="28dp"
-        android:background="@drawable/gradient_background"
         app:layout_constraintBottom_toBottomOf="@+id/heartContainer"
         app:layout_constraintStart_toEndOf="@+id/heartContainer"
         app:layout_constraintTop_toTopOf="@+id/heartContainer"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/gradient_background"
-        app:tint="#1FA650" />
+        app:tint="#1FA650"
+        />
 
     <TextView
         android:id="@+id/hiText"
@@ -437,15 +435,31 @@
         app:layout_constraintStart_toStartOf="@+id/settings"
         app:layout_constraintTop_toTopOf="@+id/settings" />
 
-    <ProgressBar
+<!--    <ProgressBar-->
+<!--        android:id="@+id/circularProgressBar"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        style="@style/Widget.AppCompat.ProgressBar.Horizontal"-->
+<!--        android:background="@drawable/circle_shape"-->
+<!--        android:indeterminate="false"-->
+<!--        android:progressDrawable="@drawable/circle_progress_bar"-->
+<!--        android:textAlignment="center"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/stepsContainer"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/stepsContainer"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/stepsContainer"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/stepsCounter"-->
+
+<!--        />-->
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
         android:id="@+id/circularProgressBar"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:background="@drawable/circle_shape"
-        android:indeterminate="false"
-        android:progressDrawable="@drawable/circle_progress_bar"
-        android:textAlignment="center"
+        app:cpb_background_progressbar_color="#7AA088"
+        app:cpb_background_progressbar_width="10dp"
+        app:cpb_progress_direction="to_right"
+        app:cpb_progressbar_color="#CBCBCB"
+        app:cpb_progressbar_width="10dp"
+        app:cpb_round_border="true"
         app:layout_constraintBottom_toBottomOf="@+id/stepsContainer"
         app:layout_constraintEnd_toEndOf="@+id/stepsContainer"
         app:layout_constraintStart_toStartOf="@+id/stepsContainer"

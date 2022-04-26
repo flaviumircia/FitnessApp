@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".profile_reg"
+    android:background="#19252B">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="447dp"
+        android:layout_height="278dp"
+        android:layout_marginTop="-100dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/foreground_color_cropped" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="331dp"
+        android:layout_height="441dp"
+        app:tint="#2E3338"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.434"
+        app:srcCompat="@drawable/roundcorner" />
+
+    <ImageView
+        android:id="@+id/profilePic"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="404dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:srcCompat="@drawable/roundcorner" />
+
+    <TextView
+        android:id="@+id/continueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/roundcorner"
+        android:backgroundTint="#325961"
+        android:fontFamily="@font/segoe_bold"
+        android:paddingLeft="40dp"
+        android:paddingTop="3dp"
+        android:paddingRight="40dp"
+        android:paddingBottom="3dp"
+        android:text="Continue"
+        android:textColor="#91CDDA"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.211" />
+
+    <TextView
+        android:id="@+id/nickName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/segoeuil"
+        android:textColor="#FFFFFF"
+        android:textSize="27sp"
+        app:layout_constraintEnd_toEndOf="@+id/profilePic"
+        app:layout_constraintStart_toStartOf="@+id/profilePic"
+        app:layout_constraintTop_toBottomOf="@+id/profilePic" />
+
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="279dp"
+        android:layout_height="99dp"
+        android:fontFamily="@font/segoeuil"
+        android:gravity="center"
+        android:text="Welcome to Walk It! \n Please enter your birthday \nand your actual weight!"
+        android:textColor="#FFFFFF"
+        android:textSize="19sp"
+        app:layout_constraintEnd_toEndOf="@+id/nickName"
+        app:layout_constraintStart_toStartOf="@+id/nickName"
+        app:layout_constraintTop_toBottomOf="@+id/nickName" />
+
+    <TextView
+        android:id="@+id/birthdayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/segoeuil"
+        android:gravity="center"
+        android:text="Birthday"
+        android:textColor="#FFFFFF"
+        android:textSize="21sp"
+        app:layout_constraintEnd_toEndOf="@+id/welcomeText"
+        app:layout_constraintHorizontal_bias="0.086"
+        app:layout_constraintStart_toStartOf="@+id/welcomeText"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
+
+    <TextView
+        android:id="@+id/startingWeightText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/segoeuil"
+        android:gravity="left"
+        android:text="Starting Weight"
+        android:textColor="#FFFFFF"
+        android:textSize="21sp"
+        app:layout_constraintEnd_toEndOf="@+id/birthdayText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/birthdayText"
+        app:layout_constraintTop_toBottomOf="@+id/birthdayText" />
+
+    <EditText
+        android:id="@+id/weightKg"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/segoeuil"
+        android:gravity="right"
+        android:textColor="#33A4BA"
+        android:inputType="numberSigned"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="@+id/startingWeightText"
+        app:layout_constraintStart_toEndOf="@+id/startingWeightText"
+        app:layout_constraintTop_toTopOf="@+id/startingWeightText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/goalWeightText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/segoeuil"
+        android:gravity="left"
+        android:text="Goal Weight"
+        android:textColor="#FFFFFF"
+        android:textSize="21sp"
+        app:layout_constraintEnd_toEndOf="@+id/startingWeightText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/startingWeightText"
+        app:layout_constraintTop_toBottomOf="@+id/startingWeightText" />
+
+    <EditText
+        android:id="@+id/goalWeightKg"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/segoeuil"
+        android:gravity="right"
+        android:textColor="#33A4BA"
+        android:textSize="21sp"
+        android:inputType="numberSigned"
+
+        app:layout_constraintBottom_toBottomOf="@+id/goalWeightText"
+        app:layout_constraintEnd_toEndOf="@+id/weightKg"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/goalWeightText"
+        app:layout_constraintTop_toTopOf="@+id/goalWeightText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/birthdayDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/segoeuil"
+        android:gravity="right"
+        android:hint="dd/mm/yyyy"
+        android:textColor="#33A4BA"
+        android:textColorHint="#33A4Ba"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="@+id/birthdayText"
+        app:layout_constraintEnd_toEndOf="@+id/welcomeText"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/birthdayText"
+        app:layout_constraintTop_toTopOf="@+id/birthdayText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/unitMeasure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/segoeuil"
+        android:gravity="right"
+        android:text="kg"
+        android:textColor="#33A4BA"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="@+id/weightKg"
+        app:layout_constraintEnd_toEndOf="@+id/birthdayDate"
+        app:layout_constraintStart_toEndOf="@+id/weightKg"
+        app:layout_constraintTop_toTopOf="@+id/weightKg" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/segoeuil"
+        android:gravity="right"
+        android:text="kg"
+        android:textColor="#33A4BA"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="@+id/goalWeightKg"
+        app:layout_constraintStart_toEndOf="@+id/goalWeightKg"
+        app:layout_constraintTop_toTopOf="@+id/goalWeightKg" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

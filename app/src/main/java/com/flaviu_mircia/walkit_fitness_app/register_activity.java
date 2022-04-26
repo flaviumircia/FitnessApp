@@ -30,6 +30,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -104,16 +106,26 @@ public class register_activity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(register_activity.this, "User created", Toast.LENGTH_LONG).show();
                             userID=fAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference=fStore.collection("users").document(userID);
+                            SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd",Locale.ENGLISH);
+                            Date data=new Date();
+                            String todayData= sdf.format(data);
+                            DocumentReference documentReference = fStore.collection("users").document(userID);
+                            DocumentReference documentReference1=fStore.collection("users").document(userID).collection("data").document(todayData);
                             Map<String,Object> user=new HashMap<String,Object>();
+                            UserDay userDay=new UserDay(0,0,"00h00m");
                             user.put("userName",userName);
-                            user.put("dailySteps",0);
+                            Map<String,Object> userClass=new HashMap<>();
+                            userClass.put("steps",userDay.getSteps());
+                            userClass.put("weight",userDay.getWeight());
+                            userClass.put("sleep",userDay.getSleep());
+
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     Log.d("TAG", "onSuccess: user Profile is created for "+ userID);
                                 }
                             });
+                            documentReference1.set(userClass);
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         } else {
                             Toast.makeText(register_activity.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
