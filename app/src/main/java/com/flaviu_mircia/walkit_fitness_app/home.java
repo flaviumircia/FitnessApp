@@ -83,10 +83,11 @@ public class home extends AppCompatActivity implements SensorEventListener {
     private Sensor mStepCounter,mLightSensor;
     private boolean isCounterSensorPresent;
     private int stepCount = 0;
+    private int count=0;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private String userID;
-    private ImageView userPhoto;
+    private ImageView userPhoto,settingsIconHome;
     private Uri imageURI;
     private CircularProgressBar circularProgressBar;
     private UserDay userDay;
@@ -101,6 +102,14 @@ public class home extends AppCompatActivity implements SensorEventListener {
             uploadImage();
             downloadPhoto();
         }
+    }
+
+    public Uri getImageURI() {
+        return imageURI;
+    }
+
+    public void setImageURI(Uri imageURI) {
+        this.imageURI = imageURI;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -121,8 +130,15 @@ public class home extends AppCompatActivity implements SensorEventListener {
 
         userPhoto = (ImageView) findViewById(R.id.userPhoto);
         //initializing variables
-        downloadPhoto();
 
+        downloadPhoto();
+        settingsIconHome=(ImageView) findViewById(R.id.settings);
+        settingsIconHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home.this,menu.class));
+            }
+        });
 
         userPhoto.setOnClickListener(new View.OnClickListener() {//on click listener for user photo, tap to change
             @Override
@@ -159,7 +175,7 @@ public class home extends AppCompatActivity implements SensorEventListener {
                         documentReference1.set(map);
                     } else if (checkTime().equals("00_00_01")) {
                         ok = 1;
-                    }else if(checkTime().equals("23_04_50")){
+                    }else if(checkTime().equals("23_40_50")){
                         String output="";
                         for(int i=0;i<userStats.size();i++){
                             output=output+String.valueOf(i)+","
@@ -168,6 +184,8 @@ public class home extends AppCompatActivity implements SensorEventListener {
                                     +String.valueOf(userStats.get(i).getLuxQuantity())+","
                                     +String.valueOf(userStats.get(i).getDb())+","
                                     +"S"+"\n";}
+//                        DocumentReference mlFile=fStore.collection("users").document(userID).collection("sleepInfo").document("train");
+//                        mlFile.set(output);
                         writeToFile(output,getApplicationContext());
                     }
                     Log.d("TAG", "onSensorChanged: Time is: " + checkTime());
@@ -253,6 +271,14 @@ public class home extends AppCompatActivity implements SensorEventListener {
                 PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
                 if (powerManager.isScreenOn()){ isOn=1; }
                   Stats userObject=new Stats(isOn,isBetweenRestingHours,sensorEvent.values[0],powerDb);
+                DocumentReference mlFile=fStore.collection("users").document(userID).collection("sleepInfo").document(String.valueOf(count));
+                HashMap <String,Object> sleepInfos=new HashMap<>();
+                sleepInfos.put("luxes",userObject.getLuxQuantity());
+                sleepInfos.put("isScreenOn",userObject.getIsScreenOn());
+                sleepInfos.put("isBetweenRestingHours",userObject.getIsbetweenRestingHours());
+                sleepInfos.put("dBm",userObject.getDb());
+                mlFile.set(sleepInfos);
+                count++;
                 Log.d("TAG", "onSensorChanged: lux="+ userObject.getLuxQuantity() +" isScreenOn="+userObject.getIsScreenOn()+ " isBetweenRestingHours="+userObject.getIsbetweenRestingHours()+" dBm="+userObject.getDb());
                 userStats.add(userObject);
             }

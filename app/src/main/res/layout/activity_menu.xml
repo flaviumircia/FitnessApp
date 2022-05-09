@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".menu"
+    android:background="#19252B"
+    >
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/userPhotoMenu"
+        app:layout_constraintEnd_toStartOf="@+id/userPhotoMenu"
+        app:layout_constraintHorizontal_bias="0.367"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/userPhotoMenu"
+        app:layout_constraintVertical_bias="0.46"
+        app:srcCompat="@drawable/stanga" />
+
+    <ImageView
+        android:id="@+id/userPhotoMenu"
+        android:layout_width="89dp"
+        android:layout_height="89dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.06"
+        app:srcCompat="@drawable/roundcorner" />
+
+    <TextView
+        android:id="@+id/settingsText"
+        android:textColor="@color/white"
+        android:fontFamily="@font/segoeuil"
+        android:textSize="27sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="Settings"
+        app:layout_constraintEnd_toEndOf="@+id/userPhotoMenu"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="@+id/userPhotoMenu"
+        app:layout_constraintTop_toBottomOf="@+id/userPhotoMenu" />
+
+    <TextView
+        android:id="@+id/accountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/segoeuil"
+        android:text="Account"
+        android:textColor="@color/white"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="@+id/personImage"
+        app:layout_constraintEnd_toStartOf="@+id/settingsText"
+        app:layout_constraintStart_toEndOf="@+id/personImage"
+        app:layout_constraintTop_toTopOf="@+id/personImage"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <ImageView
+        android:id="@+id/personImage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="100dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="@+id/backButton"
+        app:layout_constraintTop_toBottomOf="@+id/settingsText"
+        app:srcCompat="@drawable/person" />
+
+    <ImageView
+        android:id="@+id/right1"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:scaleX="-1"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/accountText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.798"
+        app:layout_constraintStart_toEndOf="@+id/accountText"
+        app:layout_constraintTop_toTopOf="@+id/accountText"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/stanga" />
+
+    <ImageView
+        android:id="@+id/fingerPrint1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="49dp"
+        app:layout_constraintEnd_toEndOf="@+id/personImage"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/personImage"
+        app:layout_constraintTop_toBottomOf="@+id/personImage"
+        app:srcCompat="@drawable/finger_print" />
+
+    <TextView
+        android:id="@+id/secAndPriv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/segoeuil"
+        android:text="Security and Privacy"
+        android:textColor="@color/white"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="@+id/fingerPrint1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.012"
+        app:layout_constraintStart_toEndOf="@+id/fingerPrint1"
+        app:layout_constraintTop_toTopOf="@+id/fingerPrint1"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/right2"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="44dp"
+        android:scaleX="-1"
+        app:layout_constraintBottom_toBottomOf="@+id/secAndPriv"
+        app:layout_constraintEnd_toEndOf="@+id/right1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/right1"
+        app:layout_constraintTop_toBottomOf="@+id/right1"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/stanga" />
+
+    <ImageView
+        android:id="@+id/micPicture"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="49dp"
+        app:layout_constraintEnd_toEndOf="@+id/fingerPrint1"
+        app:layout_constraintStart_toStartOf="@+id/fingerPrint1"
+        app:layout_constraintTop_toBottomOf="@+id/fingerPrint1"
+        app:srcCompat="@drawable/mic_pic" />
+
+    <TextView
+        android:id="@+id/hAndS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/segoeuil"
+        android:text="Help and Support"
+        android:textColor="@color/white"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="@+id/micPicture"
+        app:layout_constraintStart_toEndOf="@+id/micPicture"
+        app:layout_constraintTop_toTopOf="@+id/micPicture"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/right3"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:scaleX="-1"
+        app:layout_constraintBottom_toBottomOf="@+id/hAndS"
+        app:layout_constraintEnd_toEndOf="@+id/right2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/right2"
+        app:layout_constraintTop_toTopOf="@+id/hAndS"
+        app:srcCompat="@drawable/stanga" />
+
+    <ImageView
+        android:id="@+id/logoutPicture"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="49dp"
+        app:layout_constraintEnd_toEndOf="@+id/micPicture"
+        app:layout_constraintStart_toStartOf="@+id/micPicture"
+        app:layout_constraintTop_toBottomOf="@+id/micPicture"
+        app:srcCompat="@drawable/logout_icon" />
+
+    <TextView
+        android:id="@+id/logoutIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/segoeuil"
+        android:text="Log out"
+        android:textColor="@color/white"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="@+id/logoutPicture"
+        app:layout_constraintStart_toEndOf="@+id/logoutPicture"
+        app:layout_constraintTop_toTopOf="@+id/logoutPicture" />
+
+    <ImageView
+        android:id="@+id/right4"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:scaleX="-1"
+        app:layout_constraintBottom_toBottomOf="@+id/logoutIcon"
+        app:layout_constraintEnd_toEndOf="@+id/right3"
+        app:layout_constraintStart_toStartOf="@+id/right3"
+        app:layout_constraintTop_toTopOf="@+id/logoutIcon"
+        app:srcCompat="@drawable/stanga" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
