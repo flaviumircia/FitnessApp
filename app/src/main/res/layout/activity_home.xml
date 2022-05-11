@@ -13,8 +13,8 @@
         android:layout_width="147dp"
         android:layout_height="200dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/heartContainer"
-        app:layout_constraintStart_toStartOf="@+id/heartContainer"
+        app:layout_constraintEnd_toStartOf="@+id/profile"
+        app:layout_constraintStart_toStartOf="@+id/console"
         app:layout_constraintTop_toBottomOf="@+id/heartContainer"
         app:srcCompat="@drawable/gradient_background"
         app:tint="#A67F41" />
@@ -25,9 +25,8 @@
         android:layout_height="200dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@+id/console"
-        app:layout_constraintEnd_toEndOf="@+id/stepsContainer"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/stepsContainer"
+        app:layout_constraintEnd_toEndOf="@+id/console"
+        app:layout_constraintStart_toEndOf="@+id/profile"
         app:layout_constraintTop_toBottomOf="@+id/stepsContainer"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/gradient_background"
@@ -37,14 +36,13 @@
         android:id="@+id/stepsContainer"
         android:layout_width="147dp"
         android:layout_height="200dp"
-        android:layout_marginStart="28dp"
         app:layout_constraintBottom_toBottomOf="@+id/heartContainer"
-        app:layout_constraintStart_toEndOf="@+id/heartContainer"
+        app:layout_constraintEnd_toEndOf="@+id/sleepContainer"
+        app:layout_constraintStart_toStartOf="@+id/sleepContainer"
         app:layout_constraintTop_toTopOf="@+id/heartContainer"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/gradient_background"
-        app:tint="#1FA650"
-        />
+        app:tint="#1FA650" />
 
     <TextView
         android:id="@+id/hiText"
@@ -91,23 +89,22 @@
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/segoe_ui"
         android:text="Today"
         android:textColor="@color/white"
         android:textSize="27sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightBack"
+        app:layout_constraintStart_toEndOf="@+id/leftBack"
         app:layout_constraintTop_toBottomOf="@+id/nickname" />
 
     <ImageView
         android:id="@+id/leftBack"
         android:layout_width="33dp"
         android:layout_height="33dp"
-        android:layout_marginEnd="84dp"
+        android:layout_marginStart="40dp"
         app:layout_constraintBottom_toBottomOf="@+id/date"
-        app:layout_constraintEnd_toStartOf="@+id/date"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/date"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/stanga" />
@@ -116,10 +113,10 @@
         android:id="@+id/rightBack"
         android:layout_width="33dp"
         android:layout_height="33dp"
-        android:layout_marginStart="84dp"
+        android:layout_marginEnd="40dp"
         android:scaleX="-1"
         app:layout_constraintBottom_toBottomOf="@+id/date"
-        app:layout_constraintStart_toEndOf="@+id/date"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/date"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/stanga" />
@@ -133,7 +130,7 @@
         android:text="Dashboard"
         android:textColor="@color/white"
         android:textSize="27sp"
-        app:layout_constraintEnd_toEndOf="@+id/leftBack"
+        app:layout_constraintEnd_toEndOf="@+id/rightBack"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/leftBack"
         app:layout_constraintTop_toBottomOf="@+id/date" />
@@ -144,8 +141,8 @@
         android:layout_height="200dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/gradient_background"
-        app:layout_constraintEnd_toEndOf="@+id/dashboard"
-        app:layout_constraintStart_toStartOf="@+id/dashboard"
+        app:layout_constraintEnd_toEndOf="@+id/weightContainer"
+        app:layout_constraintStart_toStartOf="@+id/weightContainer"
         app:layout_constraintTop_toBottomOf="@+id/dashboard"
         app:srcCompat="@drawable/gradient_background" />
 
@@ -155,8 +152,8 @@
         android:layout_height="60dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/sleepContainer"
-        app:layout_constraintStart_toStartOf="@+id/weightContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weightContainer"
         app:layout_constraintVertical_bias="0.111"
         app:srcCompat="@drawable/roundcorner"
@@ -233,7 +230,7 @@
         android:textColor="@color/white"
         android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="@+id/steps"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="@+id/steps"
         app:layout_constraintTop_toBottomOf="@+id/steps" />
 
