@@ -25,6 +25,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.Image;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Build;
@@ -45,11 +46,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
+import java.time.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -64,11 +65,16 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.api.LogDescriptor;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
@@ -78,22 +84,23 @@ import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 public class home extends AppCompatActivity implements SensorEventListener {
     public static final int RECORD_AUDIO = 0;
-    private TextView nickname, stepCounter;
+    private TextView nickname, stepCounter,currentDate;
     private SensorManager sensorManager;
     private Sensor mStepCounter,mLightSensor;
     private boolean isCounterSensorPresent;
     private int stepCount = 0;
-    private int count=0;
+    private int count=0,dayCounter=0;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private String userID;
-    private ImageView userPhoto,settingsIconHome;
+    private ImageView userPhoto,settingsIconHome,leftArrow,rightArrow;
     private Uri imageURI;
     private CircularProgressBar circularProgressBar;
     private UserDay userDay;
     private ArrayList<Stats> userStats=new ArrayList<>();
     private MediaRecorder mRecorder;
     private String second;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -104,13 +111,6 @@ public class home extends AppCompatActivity implements SensorEventListener {
         }
     }
 
-    public Uri getImageURI() {
-        return imageURI;
-    }
-
-    public void setImageURI(Uri imageURI) {
-        this.imageURI = imageURI;
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -118,42 +118,95 @@ public class home extends AppCompatActivity implements SensorEventListener {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//remove notifications bar
         setContentView(R.layout.activity_home);
+
+        //initializing variables
+
         userDay=new UserDay();
         nickname = (TextView) findViewById(R.id.nickname);
         circularProgressBar=(CircularProgressBar) findViewById(R.id.circularProgressBar);
-
         fAuth = FirebaseAuth.getInstance();
-
         fStore = FirebaseFirestore.getInstance();
-
         userID = fAuth.getCurrentUser().getUid();
-
         userPhoto = (ImageView) findViewById(R.id.userPhoto);
-        //initializing variables
-
-        downloadPhoto();
+        leftArrow=(ImageView) findViewById(R.id.leftBack);
+        rightArrow=(ImageView) findViewById(R.id.rightBack);
+        currentDate=(TextView) findViewById(R.id.date);
         settingsIconHome=(ImageView) findViewById(R.id.settings);
+        stepCounter = (TextView) findViewById(R.id.stepsCounter);
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        mLightSensor=sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+
+        DocumentReference documentReference = fStore.collection("users").document(userID);
+        downloadPhoto();
+
+        rightArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Calendar calendar=Calendar.getInstance();
+                if(dayCounter!=0)
+                dayCounter--;
+                calendar.add(Calendar.DAY_OF_YEAR,-dayCounter);
+                SimpleDateFormat simple=new SimpleDateFormat("yyyyMMdd");
+                String dateFormat=simple.format(calendar.getTime());
+                SimpleDateFormat changedDate=new SimpleDateFormat("dd.MM.yy");
+                String changed=changedDate.format(calendar.getTime());
+                if(dayCounter==1){
+                currentDate.setText("Yesterday");}
+                else if (dayCounter==0)
+                    currentDate.setText("Today");
+                else
+                currentDate.setText(changed);
+                    getAll(dateFormat);
+
+                Log.d("TAG", "onClick: dateFormat for right arrow is: "+dateFormat);
+
+            }
+        }); //right arrow listener for data in home menu
+
+        leftArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar=Calendar.getInstance();
+                dayCounter++;
+                calendar.add(Calendar.DAY_OF_YEAR,-dayCounter);
+
+                SimpleDateFormat simple=new SimpleDateFormat("yyyyMMdd");
+                String dateFormat=simple.format(calendar.getTime());
+                Log.d("TAG", "onClick: previous day: "+dateFormat);
+                if(dayCounter==1)
+                    currentDate.setText("Yesterday");
+                else{
+                    SimpleDateFormat changedDate=new SimpleDateFormat("dd.MM.yy");
+                    String changed=changedDate.format(calendar.getTime());
+
+                    currentDate.setText(changed);}
+                getAll(dateFormat);
+
+            }
+        }); //left arrow listener for data in home menu
+
         settingsIconHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(home.this,menu.class));
             }
-        });
+        }); //settings listener
 
-        userPhoto.setOnClickListener(new View.OnClickListener() {//on click listener for user photo, tap to change
+        userPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent,3);
             }
-        });
-        DocumentReference documentReference = fStore.collection("users").document(userID);
+        }); //on click listener for user photo, tap to change
+
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 nickname.setText(value.getString("userName"));
             }
-        });
+        }); // document reference for getting the nickname
 
 
         Runnable helloRunnable=new Runnable() {
@@ -175,22 +228,10 @@ public class home extends AppCompatActivity implements SensorEventListener {
                         documentReference1.set(map);
                     } else if (checkTime().equals("00_00_01")) {
                         ok = 1;
-                    }else if(checkTime().equals("23_40_50")){
-                        String output="";
-                        for(int i=0;i<userStats.size();i++){
-                            output=output+String.valueOf(i)+","
-                                    +String.valueOf(userStats.get(i).getIsbetweenRestingHours())+","
-                                    +String.valueOf(userStats.get(i).getIsScreenOn())+","
-                                    +String.valueOf(userStats.get(i).getLuxQuantity())+","
-                                    +String.valueOf(userStats.get(i).getDb())+","
-                                    +"S"+"\n";}
-//                        DocumentReference mlFile=fStore.collection("users").document(userID).collection("sleepInfo").document("train");
-//                        mlFile.set(output);
-                        writeToFile(output,getApplicationContext());
                     }
                     Log.d("TAG", "onSensorChanged: Time is: " + checkTime());
             }
-        };
+        }; //background service for setting and resetting data
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(helloRunnable, 0, 1, TimeUnit.SECONDS);
         if (ContextCompat.checkSelfPermission(this,
@@ -199,18 +240,15 @@ public class home extends AppCompatActivity implements SensorEventListener {
         }
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        stepCounter = (TextView) findViewById(R.id.stepsCounter);
 
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null) {
             mStepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
             isCounterSensorPresent = true;
         } else {
             Toast.makeText(home.this, "Pedometer sensor is not present!", Toast.LENGTH_SHORT).show();
             isCounterSensorPresent = false;
-        }
+        } //checking if the pedometer sensor exists
 
-        mLightSensor=sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO);
@@ -231,14 +269,32 @@ public class home extends AppCompatActivity implements SensorEventListener {
 
     }
 
-    //gets sound amplitude
+    private void getAll(String dateFormat) {
+            DocumentReference doRef = fStore.collection("users").document(userID).collection("data").document(dateFormat);
+            doRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    assert value != null;
+                    if (value.exists()) {
+                        stepCounter.setText(value.get("steps").toString());
+
+                    } else {
+                        stepCounter.setText("0");
+                    }
+                }
+            });
+
+    } //GET method from firestore by days
+
+
     public double getAmplitude() {
         if (mRecorder != null)
             return  (mRecorder.getMaxAmplitude());
         else
             return 0;
 
-    }
+    }    //gets sound amplitude
+
     private int ok=1;
     private int difference=0;
     @Override
