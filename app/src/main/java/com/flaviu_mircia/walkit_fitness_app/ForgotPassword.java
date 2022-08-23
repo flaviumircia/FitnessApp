@@ -1,19 +1,14 @@
 package com.flaviu_mircia.walkit_fitness_app;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +16,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class forgotPassword extends AppCompatActivity {
+public class ForgotPassword extends AppCompatActivity {
     private EditText emailText;
     private TextView signUpTextView;
     private TextView resetButton;
@@ -42,7 +37,7 @@ public class forgotPassword extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(forgotPassword.this,MainActivity.class));
+                startActivity(new Intent(ForgotPassword.this,MainActivity.class));
             }
         });
         resetButton.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +54,7 @@ public class forgotPassword extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(forgotPassword.this,"ERROR! Reset link is not sent!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgotPassword.this,"ERROR! Reset link is not sent!",Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -71,7 +66,7 @@ public class forgotPassword extends AppCompatActivity {
         signUpTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(forgotPassword.this,register_activity.class));
+                startActivity(new Intent(ForgotPassword.this, RegisterActivity.class));
             }
         });
     }

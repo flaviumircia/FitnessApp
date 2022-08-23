@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-public class passwordReseted extends AppCompatActivity {
+public class PasswordReseted extends AppCompatActivity {
     private TextView signUpTextView;
 
     @Override
@@ -21,7 +21,7 @@ public class passwordReseted extends AppCompatActivity {
         signUpTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(passwordReseted.this,register_activity.class));
+                startActivity(new Intent(PasswordReseted.this, RegisterActivity.class));
             }
         });
     }

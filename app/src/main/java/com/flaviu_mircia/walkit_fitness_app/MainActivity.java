@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(MainActivity.this, "User connected", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), home.class));
+                            startActivity(new Intent(getApplicationContext(), Home.class));
                         }else {
                             Toast.makeText(MainActivity.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -81,13 +81,13 @@ public class MainActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,register_activity.class));
+                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
             }
         });
         forgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,forgotPassword.class));
+                startActivity(new Intent(MainActivity.this, ForgotPassword.class));
             }
         });
 

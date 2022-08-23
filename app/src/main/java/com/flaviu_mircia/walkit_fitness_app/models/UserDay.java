@@ -1,4 +1,4 @@
-package com.flaviu_mircia.walkit_fitness_app;
+package com.flaviu_mircia.walkit_fitness_app.models;
 
 public class UserDay {
     private int steps;

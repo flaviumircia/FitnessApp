@@ -9,36 +9,29 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.media.Image;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PowerManager;
-import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,43 +39,33 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
-import java.time.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
-import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import com.flaviu_mircia.walkit_fitness_app.models.Stats;
+import com.flaviu_mircia.walkit_fitness_app.models.UserDay;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.api.LogDescriptor;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Source;
-import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
-public class home extends AppCompatActivity implements SensorEventListener {
+public class Home extends AppCompatActivity implements SensorEventListener {
     public static final int RECORD_AUDIO = 0;
     private TextView nickname, stepCounter,currentDate;
     private SensorManager sensorManager;
@@ -139,30 +122,28 @@ public class home extends AppCompatActivity implements SensorEventListener {
         DocumentReference documentReference = fStore.collection("users").document(userID);
         downloadPhoto();
 
-        rightArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        rightArrow.setOnClickListener(view -> {
 
-                Calendar calendar=Calendar.getInstance();
-                if(dayCounter!=0)
-                dayCounter--;
-                calendar.add(Calendar.DAY_OF_YEAR,-dayCounter);
-                SimpleDateFormat simple=new SimpleDateFormat("yyyyMMdd");
-                String dateFormat=simple.format(calendar.getTime());
-                SimpleDateFormat changedDate=new SimpleDateFormat("dd.MM.yy");
-                String changed=changedDate.format(calendar.getTime());
-                if(dayCounter==1){
+            Calendar calendar=Calendar.getInstance();
+
+            if(dayCounter!=0)
+            dayCounter--;
+
+            calendar.add(Calendar.DAY_OF_YEAR,-dayCounter);
+
+            SimpleDateFormat simple=new SimpleDateFormat("yyyyMMdd");
+            String dateFormat=simple.format(calendar.getTime());
+            SimpleDateFormat changedDate=new SimpleDateFormat("dd.MM.yy");
+            String changed=changedDate.format(calendar.getTime());
+
+            if(dayCounter==1){
                 currentDate.setText("Yesterday");}
-                else if (dayCounter==0)
-                    currentDate.setText("Today");
-                else
+            else if (dayCounter==0)
+                currentDate.setText("Today");
+            else
                 currentDate.setText(changed);
-                    getAll(dateFormat);
-
-                Log.d("TAG", "onClick: dateFormat for right arrow is: "+dateFormat);
-
-            }
-        }); //right arrow listener for data in home menu
+            getAll(dateFormat);
+        }); //right arrow listener for data in Home Menu
 
         leftArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,12 +165,12 @@ public class home extends AppCompatActivity implements SensorEventListener {
                 getAll(dateFormat);
 
             }
-        }); //left arrow listener for data in home menu
+        }); //left arrow listener for data in Home Menu
 
         settingsIconHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(home.this,menu.class));
+                startActivity(new Intent(Home.this, Menu.class));
             }
         }); //settings listener
 
@@ -245,7 +226,7 @@ public class home extends AppCompatActivity implements SensorEventListener {
             mStepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
             isCounterSensorPresent = true;
         } else {
-            Toast.makeText(home.this, "Pedometer sensor is not present!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Home.this, "Pedometer sensor is not present!", Toast.LENGTH_SHORT).show();
             isCounterSensorPresent = false;
         } //checking if the pedometer sensor exists
 
@@ -393,7 +374,7 @@ public class home extends AppCompatActivity implements SensorEventListener {
             storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(home.this, "Photo successfully updated!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "Photo successfully updated!", Toast.LENGTH_SHORT).show();
                     Bitmap bitmap= BitmapFactory.decodeFile(localFile.getAbsolutePath());
                     bitmap=getClip(bitmap);
                     userPhoto.setImageBitmap(bitmap);
@@ -401,7 +382,7 @@ public class home extends AppCompatActivity implements SensorEventListener {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(home.this, "Photo failed to update!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "Photo failed to update!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -418,13 +399,13 @@ public class home extends AppCompatActivity implements SensorEventListener {
         storageReference.putFile(imageURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(home.this,"Successfully uploaded!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Home.this,"Successfully uploaded!",Toast.LENGTH_SHORT).show();
                 downloadPhoto();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(home.this,"Failed to upload!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Home.this,"Failed to upload!",Toast.LENGTH_SHORT).show();
 
             }
         });

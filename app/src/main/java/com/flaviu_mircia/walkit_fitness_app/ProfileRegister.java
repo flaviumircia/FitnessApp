@@ -12,9 +12,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.DocumentsProvider;
 import android.provider.MediaStore;
-import android.telecom.TelecomManager;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -38,7 +36,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -47,10 +44,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-public class profile_reg extends AppCompatActivity {
+public class ProfileRegister extends AppCompatActivity {
     //defining the variables
     private TextView date,nickname,continueButton;
     private DatePickerDialog.OnDateSetListener datePickerDialog;
@@ -114,7 +109,7 @@ public class profile_reg extends AppCompatActivity {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(profile_reg.this,home.class));
+                startActivity(new Intent(ProfileRegister.this, Home.class));
             }
         });
     }
@@ -156,7 +151,7 @@ public class profile_reg extends AppCompatActivity {
         int month=calendar.get(Calendar.MONTH);
         int day=calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog dialog=new DatePickerDialog(profile_reg.this, com.google.android.material.R.style.Theme_AppCompat_DayNight_Dialog_MinWidth,datePickerDialog,year,month,day);
+        DatePickerDialog dialog=new DatePickerDialog(ProfileRegister.this, com.google.android.material.R.style.Theme_AppCompat_DayNight_Dialog_MinWidth,datePickerDialog,year,month,day);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.DKGRAY));
         dialog.show();
     }
@@ -168,13 +163,13 @@ public class profile_reg extends AppCompatActivity {
         storageReference.putFile(imageURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(profile_reg.this,"Successfully uploaded!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileRegister.this,"Successfully uploaded!",Toast.LENGTH_SHORT).show();
                 downloadPhoto();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(profile_reg.this,"Failed to upload!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileRegister.this,"Failed to upload!",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -188,14 +183,14 @@ public class profile_reg extends AppCompatActivity {
             storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(profile_reg.this, "Photo successfully updated!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileRegister.this, "Photo successfully updated!", Toast.LENGTH_SHORT).show();
                     Bitmap bitmap= BitmapFactory.decodeFile(localFile.getAbsolutePath());
                     userPhoto.setImageBitmap(bitmap);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(profile_reg.this, "Photo failed to update!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileRegister.this, "Photo failed to update!", Toast.LENGTH_SHORT).show();
                 }
             });
         }

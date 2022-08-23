@@ -16,26 +16,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Walkit_fitness_App">
         <activity
-            android:name=".menu"
+            android:name=".Menu"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
 
         <activity
-            android:name=".profile_reg"
+            android:name=".ProfileRegister"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
-            android:name=".home"
+            android:name=".Home"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".forgotPassword"
+            android:name=".ForgotPassword"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".register_activity"
+            android:name=".RegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
