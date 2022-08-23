@@ -2,26 +2,19 @@ package com.flaviu_mircia.walkit_fitness_app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import android.app.ActionBar;
-import android.content.ContentValues;
+
 import android.content.Intent;
-import android.media.Image;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.Layout;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.flaviu_mircia.walkit_fitness_app.models.UserDay;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -35,10 +28,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-public class register_activity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
     private EditText passwordConfirmEditText;
@@ -48,7 +40,9 @@ public class register_activity extends AppCompatActivity {
     private FirebaseFirestore fStore;
     private String userID;
     public static boolean passwordCheck(EditText password){
+
         String password_string=password.getText().toString().trim();
+        //check if the password has one capital leter, one special symbol, one number and at least 8 char long
         Pattern pattern=Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
         Matcher matcher=pattern.matcher(password_string);
         return matcher.find();
@@ -97,14 +91,15 @@ public class register_activity extends AppCompatActivity {
                     return;
                 }
                 if(!check.isChecked()){
-                    Toast.makeText(register_activity.this,"Please read and accept our terms and conditions!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this,"Please read and accept our terms and conditions!",Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(register_activity.this, "User created", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this, "User created", Toast.LENGTH_LONG).show();
                             userID=fAuth.getCurrentUser().getUid();
                             SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd",Locale.ENGLISH);
                             Date data=new Date();
@@ -128,7 +123,7 @@ public class register_activity extends AppCompatActivity {
                             documentReference1.set(userClass);
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         } else {
-                            Toast.makeText(register_activity.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 
                         }
                     }

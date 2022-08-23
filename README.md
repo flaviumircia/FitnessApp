@@ -1,6 +1,4 @@
 # Walk it!
-<img src="https://user-images.githubusercontent.com/74871618/168465787-0d17d941-af27-4b0e-b65f-25b15b67fe73.png" width="256">
-
 #### Mobile application for a better lifestyle.
 
 "Walk it" is an android app that can change your life style to a better one.
@@ -24,10 +22,4 @@ https://www.nejm.org/doi/full/10.1056/NEJMsa1909301
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4842440
 
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3632337/
-
-
-
-
-
-
 

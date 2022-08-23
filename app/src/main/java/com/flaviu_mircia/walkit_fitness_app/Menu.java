@@ -10,7 +10,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.media.Image;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -25,7 +24,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 
-public class menu extends AppCompatActivity {
+public class Menu extends AppCompatActivity {
     private ImageView userPhoto;
     private FirebaseStorage fStorage;
     private FirebaseAuth fAuth;
@@ -50,7 +49,7 @@ public class menu extends AppCompatActivity {
             storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(menu.this, "Photo successfully updated!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Menu.this, "Photo successfully updated!", Toast.LENGTH_SHORT).show();
                     Bitmap bitmap= BitmapFactory.decodeFile(localFile.getAbsolutePath());
                     bitmap=getClip(bitmap);
                     userPhoto.setImageBitmap(bitmap);
@@ -58,7 +57,7 @@ public class menu extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(menu.this, "Photo failed to update!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Menu.this, "Photo failed to update!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
